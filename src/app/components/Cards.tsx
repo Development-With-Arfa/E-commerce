@@ -6,7 +6,6 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Products } from "../../../typings.d";
-import { addToCart } from "../actions/actions";
 import { featuredProducts } from "@/sanity/lib/queries";
 import AddToCartButton from "./addToCart";
 

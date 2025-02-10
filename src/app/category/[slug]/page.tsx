@@ -3,7 +3,6 @@ import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 import { Products } from "../../../../typings.d";
-import Link from "next/link";
 
 export default async function Page({
   params: { slug },

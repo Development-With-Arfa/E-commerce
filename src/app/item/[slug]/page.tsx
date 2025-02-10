@@ -4,11 +4,8 @@ import Image from "next/image";
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
 import { FaHeart } from "react-icons/fa";
-import { LuShoppingCart } from "react-icons/lu";
-import Link from "next/link";
 import Swal from "sweetalert2";
 import { addToCart } from "@/app/actions/actions";
-import { Products } from "../../../../typings.d";
 import AddToCartButton from "@/app/components/addToCart";
 
 export default async function page({

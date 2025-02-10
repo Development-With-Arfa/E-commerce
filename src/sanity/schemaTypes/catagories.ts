@@ -1,4 +1,4 @@
-import { defaultHead } from "next/head";
+
 import { defineType } from "sanity";
 
 export default defineType({
