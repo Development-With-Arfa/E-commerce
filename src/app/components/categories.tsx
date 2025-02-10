@@ -3,7 +3,6 @@ import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 import { Products } from "../../../typings.d";
 import Link from "next/link";
-import products from "@/sanity/schemaTypes/products";
 
 const Categories = async () => {
   const category: Products[] = await client.fetch(`*[_type=="categories"]{ 

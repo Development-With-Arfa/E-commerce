@@ -4,8 +4,6 @@ import Image from "next/image";
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
 import { FaHeart } from "react-icons/fa";
-import Swal from "sweetalert2";
-import { addToCart } from "@/app/actions/actions";
 import AddToCartButton from "@/app/components/addToCart";
 
 export default async function page({
@@ -17,18 +15,6 @@ export default async function page({
         title, description, inventory, tags, image, price, priceWithoutDiscount, badge
   }[0]`;
   const products = await client.fetch(query);
-
-  const handleAddToCart = (e: React.MouseEvent) => {
-    e.preventDefault();
-    Swal.fire({
-      position: "top-right",
-      icon: "success",
-      title: `${products.title} added to cart`,
-      showConfirmButton: false,
-      timer: 1500,
-    });
-    addToCart(products);
-  };
 
   return (
     <div className="flex">
