@@ -1,4 +1,4 @@
-export default{
+const order = {
     name: "order",
     type: "document",
     title: "Order",
@@ -47,7 +47,7 @@ export default{
             name: "cartItems",
             type: "array",
             title: "Cart Items",
-            of: [{type: "reference", to: {type: "products"}}]
+            of: [{ type: "reference", to: { type: "products" } }]
         },
         {
             name: "total",
@@ -60,13 +60,15 @@ export default{
             title: "Order Status",
             options: {
                 list: [
-                    {title: "Pending", value: "pending"},
-                    {title: "Success", value: "success"},
-                    {title: "Dispatch", value: "dispatch"},
+                    { title: "Pending", value: "pending" },
+                    { title: "Success", value: "success" },
+                    { title: "Dispatch", value: "dispatch" }
                 ],
                 layout: "radio",
             },
             initialValue: "pending",
         }
     ]
-}
+};
+
+export default order;

@@ -2,20 +2,32 @@ import AddToCartButton from "@/app/components/addToCart";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
+import { Metadata } from "next";
 import { Products } from "../../../../typings.d";
 
-export default async function Page({
-  params: { slug },
-}: {
+type PageProps = {
   params: { slug: string };
-}) {
+};
+
+
+// ✅ Correct `generateMetadata`
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  return {
+    title: `Products in ${params.slug}`,
+    description: `Browse products under ${params.slug} category.`,
+  };
+}
+
+export default async function Page({ params }: PageProps) {
+  const { slug } = params;
+
   const query = `*[_type == "products" && category->slug.current == '${slug}']{
         title, image, price, "slug": slug.current, priceWithoutDiscount
   }`;
 
-  const products = await client.fetch(query);
+  // ✅ Explicitly define return type for `fetch()`
+  const products: Products[] = await client.fetch<Products[]>(query);
 
-  // If no products are found, show a message
   if (!products || products.length === 0) {
     return (
       <div className="text-center text-red-500">
@@ -26,9 +38,9 @@ export default async function Page({
 
   return (
     <div className="grid grid-cols-1 justify-center sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-center mx-auto">
-      {products.map((product: Products, index: number) => (
+      {products.map((product) => (
         <div
-          key={index}
+          key={product._id} // ✅ Fixed Key Issue
           className="h-[500px] w-auto min-w-[312px] bg-white pt-10 overflow-hidden"
         >
           {product.image ? (
