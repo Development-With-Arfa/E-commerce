@@ -5,27 +5,36 @@ import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
 import { FaHeart } from "react-icons/fa";
 import AddToCartButton from "@/app/components/addToCart";
+import { Products } from "../../../../typings.d";
+import { groq } from "next-sanity";
 
-export default async function page({
-  params: { slug },
-}: {
-  params: { slug: string };
-}) {
-  const query = `*[_type=='products' && slug.current == "${slug}"]{
+interface  ProductPageProps {
+  params: Promise<{ slug: string}>
+}
+
+async function getProduct(slug: string): Promise<Products>{
+  return client.fetch(
+  groq`*[_type=='products' && slug.current == "${slug}"][0]{
         title, description, inventory, tags, image, price, priceWithoutDiscount, badge
-  }[0]`;
-  const products = await client.fetch(query);
+    }`, {slug}
+
+  )
+};
+
+ async function Page({params}: ProductPageProps) {
+  const {slug} = await params; 
+  const products = await getProduct(slug)
 
   return (
     <div className="flex">
       <div className="my-8">
-        <Image
+          <Image
           src={urlFor(products.image).url()}
           alt={products.title}
           height={500}
           width={600}
           className="h-[500px] w-[600px] object-cover rounded-lg mx-10"
-        />
+          />
       </div>
       <div className="md:w-1/2 w-full my-10">
         <h2 className="h-auto w-[541px] text-6xl font-bold text-[rgba(39,35,67,1)]">
@@ -64,3 +73,5 @@ export default async function page({
     </div>
   );
 }
+
+export default Page;

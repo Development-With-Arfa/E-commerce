@@ -9,7 +9,7 @@ export type Products = {
     }
     title: string,
     description: string,
-    image: any,
+    image :any,
     price: number,
     discountPercentage:number,
     priceWithoutDiscount:number,
