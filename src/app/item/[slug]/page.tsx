@@ -17,7 +17,6 @@ async function getProduct(slug: string): Promise<Products>{
   groq`*[_type=='products' && slug.current == "${slug}"][0]{
         title, description, inventory, tags, image, price, priceWithoutDiscount, badge
     }`, {slug}
-
   )
 };
 
